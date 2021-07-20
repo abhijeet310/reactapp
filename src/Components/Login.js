@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom'
 function Login(){
     let style={width:'50%', marginLeft:'25%',marginTop:'10%'}
 
@@ -12,9 +13,13 @@ function Login(){
   <div class="form-group">
     <label for="exampleInputPassword1" style={{float:'left'}}>Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1"/>
+    
   </div>
+  <div>
+  <Link to='/signup'>New User ? Signup</Link>
+  </div>
+  <button style={{marginTop:"10px"}} type="submit" class="btn btn-primary">Submit</button>
   
-  <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
     )

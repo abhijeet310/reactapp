@@ -15,7 +15,10 @@ function Home(props){
     return(
         <div>
          <Crousel/>
+         <div className='row'>
          <Cake data={cake1}/>
+         <Cake data={cake2}/>
+         </div>
         </div>
     )
 }
