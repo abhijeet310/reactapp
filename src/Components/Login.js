@@ -1,28 +1,75 @@
-import {Link} from 'react-router-dom'
-function Login(){
-    let style={width:'50%', marginLeft:'25%',marginTop:'10%'}
+import { Link } from "react-router-dom";
+import { useState } from "react";
+function Login(props) {
+  const [message, setMessage] = useState("");
+  let style = {
+    width: "50%",
+    marginLeft: "25%",
+    marginTop: "10%",
+    background: "#282828",
+  };
+  let user = {};
+  const emailHandler = (event) => {
+    user.email = event.target.value;
+  };
 
-    return(
+  const passwordHandler = (event) => {
+    user.password = event.target.value;
+  };
+  const login = (event) => {
+    setMessage("Invalid Credential");
+    if (
+      user.email === "abhijeet.bhawsar11@gmail.com" &&
+      user.password === "test@123"
+    ) {
+      props.history.push("/");
+    }
+    event.preventDefault()
+  };
 
-<form style={style}>
-  <div class="form-group">
-    <label for="exampleInputEmail1" style={{float:'left'}}>Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-    
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1" style={{float:'left'}}>Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1"/>
-    
-  </div>
-  <div>
-  <Link to='/signup'>New User ? Signup</Link>
-  </div>
-  <button style={{marginTop:"10px"}} type="submit" class="btn btn-primary">Submit</button>
-  
-</form>
-
-    )
+  return (
+    <form style={style} className="jumbotron">
+      <div class="form-group">
+        <label for="exampleInputEmail1" style={{ float: "left",color:'whitesmoke' }}>
+          Email address
+        </label>
+        <input
+          onChange={emailHandler}
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1" style={{ float: "left",color:'whitesmoke' }}>
+          Password
+        </label>
+        <input
+          onChange={passwordHandler}
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+        />
+      </div>
+      <div>
+        <Link to="/signup" style={{ color: "whitesmoke" }}>
+          New User ? Signup
+        </Link>
+      </div>
+      <button
+        onClick={login}
+        style={{ marginTop: "10px", marginLeft: "88%" }}
+        type="submit"
+        class="btn btn-primary"
+      >
+        Login
+      </button>
+      <label className="errormessage" style={{ color: "red" }}>
+        {message}
+      </label>
+    </form>
+  );
 }
 
-export default Login
+export default Login;

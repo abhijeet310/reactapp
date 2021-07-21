@@ -2,6 +2,9 @@ import Loader from "react-loader-spinner";
 import Home from "./Components/Home.js";
 import Login from "./Components/Login.js";
 import Signup from "./Components/Signup.js";
+import Search from "./Components/Search.js"
+import Addcake from "./Components/Addcake"
+import CakeDetail from "./Components/CakeDetail.js"
 import { useState, useEffect } from "react";
 import "./App.css";
 import { Navbar } from "./Components/nav.js";
@@ -35,7 +38,11 @@ function App() {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/search" component={Search}/>
+          <Route exact path="/addcake" component={Addcake}/>
+          <Route exact path="/cake/:parametername"component={CakeDetail}/>
           <Route exact path="**" component={PageNotFound} />
+          
         </Switch>
       </BrowserRouter>
       }
