@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link,withRouter } from "react-router-dom";
+import axios from "axios";
+//import { useState } from "react";
 function Login(props) {
-  const [message, setMessage] = useState("");
+ // const [message, setMessage] = useState("");
   let style = {
     width: "50%",
     marginLeft: "25%",
@@ -16,21 +17,43 @@ function Login(props) {
   const passwordHandler = (event) => {
     user.password = event.target.value;
   };
+
   const login = (event) => {
-    setMessage("Invalid Credential");
-    if (
-      user.email === "abhijeet.bhawsar11@gmail.com" &&
-      user.password === "test@123"
-    ) {
-      props.history.push("/");
+    event.preventDefault();
+
+    //setMessage("Invalid Credential");
+    let apiurl = "https://apifromashu.herokuapp.com/api/login";
+    axios({
+      method: "post",
+      url: apiurl,
+      data: user,
+    })
+      .then((res) => {
+       console.log(props)
+        console.log("response from login api", res);
+        if(res.data.token){
+          props.loggedIn()
+          localStorage.token = res.data.token
+          props.history.push("/")
+      }
+      else{
+        alert("Invalid Credentials")
     }
-    event.preventDefault()
+       
+      })
+      .catch((err) => {
+        console.log("error from login api", err);
+      });
+   
   };
 
   return (
     <form style={style} className="jumbotron">
       <div class="form-group">
-        <label for="exampleInputEmail1" style={{ float: "left",color:'whitesmoke' }}>
+        <label
+          for="exampleInputEmail1"
+          style={{ float: "left", color: "whitesmoke" }}
+        >
           Email address
         </label>
         <input
@@ -42,7 +65,10 @@ function Login(props) {
         />
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1" style={{ float: "left",color:'whitesmoke' }}>
+        <label
+          for="exampleInputPassword1"
+          style={{ float: "left", color: "whitesmoke" }}
+        >
           Password
         </label>
         <input
@@ -65,11 +91,11 @@ function Login(props) {
       >
         Login
       </button>
-      <label className="errormessage" style={{ color: "red" }}>
+      {/* <label className="errormessage" style={{ color: "red" }}>
         {message}
-      </label>
+      </label> */}
     </form>
   );
 }
 
-export default Login;
+export default withRouter(Login)
